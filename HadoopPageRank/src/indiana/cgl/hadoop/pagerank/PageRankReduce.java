@@ -29,11 +29,16 @@ public class PageRankReduce extends Reducer<LongWritable, Text, LongWritable, Te
 		//hints each tuple may include: rank value tuple or link relation tuple  
 		for (Text value: values){
 			String[] strArray = value.toString().split("#");
+			//sourceUrl = Integer.parseInt(strArray[0].split("\t")[1]);
 			if (strArray.length == 1){
-				// Write your code here
+				sumOfRankValues += Double.parseDouble(strArray[0]);
 			}
 			else{
-				// Write your code here
+				StringBuffer sb = new StringBuffer();	
+				for (int i=1;i<strArray.length;i++){
+					sb.append("#"+ strArray[i]);
+				}
+				targetUrlsList = sb.toString();
 			}
 		}
 		sumOfRankValues = 0.85*sumOfRankValues+0.15*(1.0)/(double)numUrls;

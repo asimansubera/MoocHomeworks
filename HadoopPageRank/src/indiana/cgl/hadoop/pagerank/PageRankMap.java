@@ -38,7 +38,15 @@ public class PageRankMap extends Mapper<LongWritable, Text, LongWritable, Text> 
 		}else{  
 			StringBuffer sb = new StringBuffer();
 			// Write your code here
-
+double rankValuePerTargetUrl = rrd.rankValue/(double)(rrd.targetUrlsList.size());
+			//sb.append(rrd.sourceUrl);
+			sb.append(String.valueOf(0.0f));
+			for (int i=0;i<rrd.targetUrlsList.size();i++){
+				targetUrl = rrd.targetUrlsList.get(i);
+				
+				sb.append("#"+targetUrl);
+				context.write(new LongWritable(targetUrl), new Text(String.valueOf(rankValuePerTargetUrl)));
+			}//for
 			context.write(new LongWritable(rrd.sourceUrl), new Text(sb.toString()));
 		}
 	}//map
